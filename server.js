@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-//const API_BASE = 'http://127.0.0.1:8000';
-const API_BASE = "http://sungchol.tplinkdns.com:8081";
+//const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "http://sungchol.tplinkdns.com:8080";
 
 // 서버 오류를 상태 코드와 함께 전달하기 위한 오류 클래스
 class ApiError extends Error {
