@@ -4,7 +4,9 @@
 실행
     pip install -r requirements.txt
     python server.py
-    (또는) uvicorn server:app --host 127.0.0.1 --port 8000
+    
+    ** 외부 공개용 **
+    python -m uvicorn server:app --host 0.0.0.0 --port 8000
 
 엔드포인트
     GET  /health   서버 동작 확인 (프런트엔드의 실시간/사전계산 모드 판별용)
@@ -22,18 +24,18 @@ import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
-import processing
+import processing   #우리가 정의한 이미지필터 함수
 
 # ---------------------------------------------------------------------------
 # 설정
 # ---------------------------------------------------------------------------
 ALLOWED_ORIGINS = [
-    "https://tsgox.github.io",   # GitHub Pages 주소로 교체
+    "https://tsgox.github.io",        # GitHub Pages 주소로 교체
     "http://localhost:5500",          # VS Code Live Server
     "http://127.0.0.1:5500",
     "http://localhost:8080",          # python -m http.server 8080
 ]
-MAX_UPLOAD_BYTES = 20 * 1024 * 1024   # 업로드 상한 10MB
+MAX_UPLOAD_BYTES = 20 * 1024 * 1024   # 업로드 상한 20MB
 MAX_SIDE = 1024                       # 긴 변 기준 처리 해상도 상한(px)
 MAX_CONCURRENT = 2                    # 동시에 처리할 요청 수 (CPU 코어 수에 맞춰 조정)
 WAIT_TIMEOUT = 30                     # 처리 대기열에서 기다릴 최대 시간(초)
