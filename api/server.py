@@ -28,7 +28,7 @@ import processing
 # 설정
 # ---------------------------------------------------------------------------
 ALLOWED_ORIGINS = [
-    "https://tsgox.github.io/Lozic",   # GitHub Pages 주소로 교체
+    "https://tsgox.github.io",   # GitHub Pages 주소로 교체
     "http://localhost:5500",          # VS Code Live Server
     "http://127.0.0.1:5500",
     "http://localhost:8080",          # python -m http.server 8080
