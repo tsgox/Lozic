@@ -97,7 +97,8 @@ export async function postProcessFilter(
     signal,
     noiseStrength = 10,
     proposedFilter = "WMM_II",
-    runMode="prop",
+    conventionFilter = "hybrid",
+    runMode = "prop",
   } = {},
 ) {
   const form = new FormData();
@@ -117,6 +118,9 @@ export async function postProcessFilter(
   if (proposedFilter !== undefined) {
     form.append("proposed_filter", proposedFilter);
   }
+
+  // 3번창 추가필터유형 등록
+  form.append("convention_filter", conventionFilter);
 
   // 다섯번째 필터유형 등록
   if (runMode !== undefined) {
@@ -177,12 +181,27 @@ export async function postProcessFilter(
 // endpoint == /process/filter_hybrid
 export async function postFilter_hybrid(
   image,
-  { filename = "image.png", timeoutMs = 60000, signal } = {},
+  imageClean,
+  {
+    filename = "image.png",
+    filenameClean = "clean.png",
+    timeoutMs = 600000,
+    signal,
+    conventionFilter = "hybrid",
+  } = {},
 ) {
   const form = new FormData();
 
   // append 첫번째 인자 'file'은 서버의 매개변수 이름과 같아야 한다
   form.append("file", image, image.name || filename);
+
+  // 두번째 클린이미지 등록
+  if (imageClean !== undefined && imageClean !== null) {
+    form.append("file_clean", imageClean, imageClean.name || filenameClean);
+  }
+
+  // 3번창 추가필터유형 등록
+  form.append("convention_filter", conventionFilter);
 
   // 시간 초과와 외부 취소를 하나의 AbortController로 합친다
   const controller = new AbortController();
